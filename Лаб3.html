@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Canvas в HTML5</title>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="1350" height="635"
+                style="background-color:#eee; border: 1px solid #ccc;">
+        </canvas>
+        <script>
+            var canvas = document.getElementById("myCanvas"), 
+				context = canvas.getContext("2d"),
+
+			gradient = context.createLinearGradient(0, 30, 1350, 30); //небо
+			gradient.addColorStop(0, "#79B0E1");
+			gradient.addColorStop(1, "#095495");
+			context.fillStyle = gradient;
+			context.fillRect(0, 0, 1350, 400);
+
+			gradient = context.createLinearGradient(0, 400, 0, 635); //небо
+			gradient.addColorStop(0, "#11560E");
+			gradient.addColorStop(1, "#208D1B");
+			context.fillStyle = gradient;
+			context.fillRect(0, 400, 1350, 235);
+
+			context.beginPath(); //тучка безье
+			gradient = context.createRadialGradient(850,150,300,850,150,10);
+            gradient.addColorStop(0, "#DCDFEC");
+			gradient.addColorStop(1, "#7187C9");
+			context.fillStyle = gradient;
+			context.bezierCurveTo(600, 50, 700, 40, 720, 80);
+			context.bezierCurveTo(650, 0, 1000, 5, 900, 120);
+					context.bezierCurveTo(800, 140, 800, 140, 600, 120);
+					context.bezierCurveTo(550, 80, 550, 80, 600, 50);
+			context.fill();
+context.stroke();
+			context.closePath();
+
+			context.beginPath(); //тучка квадратик
+			gradient = context.createRadialGradient(130,110,300,130,110,10);
+            gradient.addColorStop(0, "#DCDFEC");
+			gradient.addColorStop(1, "#7187C9");
+			context.fillStyle = gradient;
+			context.beginPath();
+			context.moveTo(70,120);
+			context.lineTo(220,120);
+context.quadraticCurveTo(310,150,300,120);
+			context.quadraticCurveTo(380,100,320,70);
+			context.quadraticCurveTo(280,10,200,50);
+			context.quadraticCurveTo(180,15,150,40);
+			context.quadraticCurveTo(70,10,65,80);
+			context.quadraticCurveTo(40,110,70,120);
+context.stroke();
+			context.fill();
+			context.closePath();
+
+			context.beginPath();//тучка арк
+			gradient = context.createRadialGradient(460,10,300,460,100,10);
+            gradient.addColorStop(0, "#DCDFEC");
+			gradient.addColorStop(1, "#7187C9");
+			context.fillStyle = gradient;
+			context.moveTo(460,120);
+			context.arcTo(550,20,550,70,50);
+			context.arcTo(650,40,650,90,60);
+			context.lineTo(400,195);
+			context.arcTo(400,130,460,120,45);
+			context.lineTo(460,120);
+			context.fill();
+context.stroke();
+			context.closePath();
+
+			context.fillStyle = "#5D360F"; //столб1
+			context.beginPath();
+			context.moveTo(1025, 100);
+			context.lineTo(1000, 500);
+			context.lineTo(1070, 500);
+			context.lineTo(1045, 100);
+			context.fill();
+			context.stroke();
+			context.closePath();
+
+			context.fillStyle = "#139513"; //листва1
+			context.beginPath();
+			context.moveTo(1020,100);
+			context.bezierCurveTo(1050, 80, 1150, 90, 1120, 180);
+			context.bezierCurveTo(1150, 220, 1200, 250, 1100, 290);
+			context.bezierCurveTo(1100, 350, 990, 350, 980, 300);
+			context.bezierCurveTo(880, 295, 885, 250, 940, 180);
+			context.bezierCurveTo(940, 150, 940, 100, 1020, 100);
+			context.fill();
+			context.stroke();
+			context.closePath();
+
+			context.fillStyle = "#5D360F"; //столб2
+			context.beginPath();
+			context.moveTo(600, 400);
+			context.lineTo(590, 550);
+			context.lineTo(620, 550);
+			context.lineTo(610, 400);
+			context.fill();
+			context.stroke();
+			context.closePath();
+
+			context.fillStyle = "#139513"; //листва2
+			context.beginPath();
+			context.moveTo(600,300);
+			context.quadraticCurveTo(670,280,670,340);
+			context.quadraticCurveTo(700,360,680,390);
+			context.quadraticCurveTo(690,460,610,450);
+			context.quadraticCurveTo(520,490,520,410);
+			context.quadraticCurveTo(480,340,550,330);
+			context.quadraticCurveTo(550,290,600,300);
+			context.fill();
+			context.stroke();
+			context.closePath();
+
+			context.beginPath();//листик
+			context.fillStyle = "#356525";
+			context.moveTo(240,440);
+			context.lineTo(240, 580);
+			context.quadraticCurveTo(300,540,290,500);
+			context.quadraticCurveTo(250,510,240,580);
+			context.fill();
+			context.stroke();
+
+			context.beginPath();//цветок
+			context.fillStyle = "#3544B3";
+			context.ellipse(240, 440, 10, 65, Math.PI / 2, 0, 2 * Math.PI);
+			context.ellipse(240, 440, 10, 65, Math.PI / 1, 0, 2 * Math.PI);
+			context.ellipse(240, 440, 10, 65, Math.PI / 4, 0, 2 * Math.PI);
+			context.ellipse(240, 440, 10, 65, Math.PI / -4, 0, 2 * Math.PI);
+			context.fill();
+			context.closePath();
+
+			context.beginPath();//серединка
+			context.fillStyle = "#E8EB35";
+			context.ellipse(240, 440, 10, 10, Math.PI / 2, 0, 2 * Math.PI);
+			context.fill();
+			context.closePath();
+			
+
+
+
+        </script>
+    </body>
+</html>

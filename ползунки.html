@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="robots" content="noindex,nofollow" />
+		<title>”рок 3 - ¬ращающийс¤ куб</title>
+	</head>
+	<style>
+	
+html, body {
+  margin: 0;
+  height: 100%;
+}
+#c {
+  
+  float: left;
+  width: 300px;
+  height: 300px;
+  display: block;
+}
+</style>
+
+<body>
+<canvas id="c"></canvas>
+<div id="controls" style="display:inline; width:50%;">
+      СПЛЮСНУТЬ ПО X: <input type="range" id="жмякX" value="1" min=".0001" max="2.00" step=".0001" oninput="this.value"><b id="жмякInfoX" style="margin:1% 2% 1% 2%;"></b><br>
+      СПЛЮСНУТЬ ПО Y: <input type="range" id="жмякY" value="1" min=".0001" max="2.00" step=".0001" oninput="this.value"><b id="жмякInfoY" style="margin:1% 2% 1% 2%;"></b><br>
+      СПЛЮСНУТЬ ПО Z: <input type="range" id="жмякZ" value="1" min=".0001" max="2.00" step=".0001" oninput="this.value"><b id="жмякInfoZ" style="margin:1% 2% 1% 2%;"></b><br>
+</div>
+<div>
+<script type="module" >
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r115/build/three.module.js';
+
+function main() {
+  const canvas = document.querySelector('#c');
+  const renderer = new THREE.WebGLRenderer({canvas});
+
+  const fov = 75;
+  const aspect = 2;  // the canvas default
+  const near = 0.1;
+  const far = 5;
+  const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera.position.z = 2;
+
+  const scene = new THREE.Scene();
+
+  {
+    const color = 0xFFFFFF;
+    const intensity = 1;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(-1, 2, 4);
+    scene.add(light);
+  }
+
+  const boxWidth = 1;
+  const boxHeight = 1;
+  const boxDepth = 1;
+
+  
+  const texture = new THREE.TextureLoader().load( 'https://www.meme-arsenal.com/memes/7eb40e08d3ea96dc8d4b3857413425d1.jpg' );
+
+  const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+  
+  const material = new THREE.MeshPhongMaterial({map: texture});  // greenish blue
+
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+  
+  function resizeRendererToDisplaySize(renderer) {
+  const canvas = renderer.domElement;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    renderer.setSize(width, height, false);
+  }
+  return needResize;
+}
+
+  function render(time) {
+    time *= 0.001;  // convert time to seconds
+
+  if (resizeRendererToDisplaySize(renderer)) {
+    const canvas = renderer.domElement;
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+  }
+    cube.rotation.x = time;
+    cube.rotation.y = time;
+    cube.scale.x = parseFloat(document.querySelector("#жмякX").value);
+    cube.scale.y = parseFloat(document.querySelector("#жмякY").value);
+    cube.scale.z = parseFloat(document.querySelector("#жмякZ").value);
+    document.querySelector("#жмякInfoX").innerHTML = parseFloat(document.querySelector("#жмякX").value);
+    document.querySelector("#жмякInfoY").innerHTML = parseFloat(document.querySelector("#жмякY").value);
+    document.querySelector("#жмякInfoZ").innerHTML = parseFloat(document.querySelector("#жмякZ").value);
+
+    renderer.render(scene, camera);
+
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+
+}
+
+main();
+</script>
+<div>
+<p><h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Donec laoreet
+maximus metus, a interdum massa faucibus id.  Pellentesque in mauris elit.
+Vestibulum quis consectetur nisi.Nulla pellentesque, sapien in
+condimentum ullamcorper, mi nisl sollicitudin felis, a ullamcorper sapien
+dui vel metus.  Nam augue nisi, elementum id diam vel, blandit imperdiet
+nunc.  Vivamus facilisis imperdiet neque id porttitor.  Mauris sapien
+felis, mollis tempus orci vitae, sollicitudin varius augue.  Nullam non
+magna id sem faucibus sollicitudin.  Proin nunc mi, rutrum et elementum
+ut, auctor eget massa.</h2></p>
+
+<style type="text/css">
+		  @-webkit-keyframes spincube {
+			from,to  { -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+			16%      { -webkit-transform: rotateY(-90deg);                           }
+			33%      { -webkit-transform: rotateY(-90deg) rotateZ(90deg);            }
+			50%      { -webkit-transform: rotateY(-180deg) rotateZ(90deg);           }
+			66%      { -webkit-transform: rotateY(-270deg) rotateX(90deg);           }
+			83%      { -webkit-transform: rotateX(90deg);                            }
+		  }		  @keyframes spincube {
+			from,to {
+			  -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+			  -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+			  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+			}		16% {
+			  -moz-transform: rotateY(-90deg);
+			  -ms-transform: rotateY(-90deg);
+			  transform: rotateY(-90deg);
+			}		33% {
+			  -moz-transform: rotateY(-90deg) rotateZ(90deg);
+			  -ms-transform: rotateY(-90deg) rotateZ(90deg);
+			  transform: rotateY(-90deg) rotateZ(90deg);
+			}		50% {
+			  -moz-transform: rotateY(-180deg) rotateZ(90deg);
+			  -ms-transform: rotateY(-180deg) rotateZ(90deg);
+			  transform: rotateY(-180deg) rotateZ(90deg);
+			}		66% {
+			  -moz-transform: rotateY(-270deg) rotateX(90deg);
+			  -ms-transform: rotateY(-270deg) rotateX(90deg);
+			  transform: rotateY(-270deg) rotateX(90deg);
+			}	83% {
+			  -moz-transform: rotateX(90deg);
+			  -ms-transform: rotateX(90deg);
+			  transform: rotateX(90deg);
+			}
+		  }		  .cubespinner {
+			-webkit-animation-name: spincube;
+			-webkit-animation-timing-function: ease-in-out;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-duration: 12s;
+			animation-name: spincube;
+			animation-timing-function: ease-in-out;
+			animation-iteration-count: infinite;
+			animation-duration: 12s;
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+			-ms-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			-webkit-transform-origin: 60px 60px 0;
+			-moz-transform-origin: 60px 60px 0;
+			-ms-transform-origin: 60px 60px 0;
+			transform-origin: 60px 60px 0;
+		  }		  .cubespinner div {
+			position: absolute;
+			width: 120px;
+			height: 120px;
+			border: 6px solid red;
+			background: rgba(255,255,255,0.6);
+			box-shadow: inset 0 0 20px red;
+			line-height: 120px;
+			text-align: center;
+			font-size: 100px;
+			color:#55BEDE;
+		  } .cubespinner .face1 {
+			-webkit-transform: translateZ(60px);
+			-moz-transform: translateZ(60px);
+			-ms-transform: translateZ(60px);
+			transform: translateZ(60px);
+		  }	  .cubespinner .face2 {
+			-webkit-transform: rotateY(90deg) translateZ(60px);
+			-moz-transform: rotateY(90deg) translateZ(60px);
+			-ms-transform: rotateY(90deg) translateZ(60px);
+			transform: rotateY(90deg) translateZ(60px);
+		  }	  .cubespinner .face3 {
+			-webkit-transform: rotateY(90deg) rotateX(90deg) translateZ(60px);
+			-moz-transform: rotateY(90deg) rotateX(90deg) translateZ(60px);
+			-ms-transform: rotateY(90deg) rotateX(90deg) translateZ(60px);
+			transform: rotateY(90deg) rotateX(90deg) translateZ(60px);
+		  }	  .cubespinner .face4 {
+			-webkit-transform: rotateY(180deg) rotateZ(90deg) translateZ(60px);
+			-moz-transform: rotateY(180deg) rotateZ(90deg) translateZ(60px);
+			-ms-transform: rotateY(180deg) rotateZ(90deg) translateZ(60px);
+			transform: rotateY(180deg) rotateZ(90deg) translateZ(60px);
+		  }	  .cubespinner .face5 {
+			-webkit-transform: rotateY(-90deg) rotateZ(90deg) translateZ(60px);
+			-moz-transform: rotateY(-90deg) rotateZ(90deg) translateZ(60px);
+			-ms-transform: rotateY(-90deg) rotateZ(90deg) translateZ(60px);
+			transform: rotateY(-90deg) rotateZ(90deg) translateZ(60px);
+		  }   .cubespinner .face6 {
+			-webkit-transform: rotateX(-90deg) translateZ(60px);
+			-moz-transform: rotateX(-90deg) translateZ(60px);
+			-ms-transform: rotateX(-90deg) translateZ(60px);
+			transform: rotateX(-90deg) translateZ(60px);
+		  }
+		</style>
+	
+		
+		<div class="stage" style="width: 150px; height: 150px; margin:1px auto; float: right;"> 
+			<div class="cubespinner"> 
+				<div class="face1">K</div> 
+				<div class="face2">i</div> 
+				<div class="face3">r</div> 
+				<div class="face4">i</div> 
+				<div class="face5">l</div> 
+				<div class="face6">L</div> 
+			</div> 
+		</div>
+
+<p><h2>Обработка дисплеев HD-DPI
+HD-DPI - дисплеи с высокой плотностью точек на дюйм. Сейчас они у большинства компьютеров Mac, многих компьютеров с Windows, а также почти всех смартфонов.
+
+То, как это работает в браузере, заключается в том, что они используют пиксели CSS для установки размеров, которые должны быть одинаковыми, независимо от того, насколько высоким является разрешение дисплея. Браузер будет просто отображать текст с большей детализацией, но с таким же физическим размером.
+
+Существуют различные способы обработки HD-DPI с помощью three.js.
+
+Первый - просто не делать ничего особенного. Это, пожалуй, самый распространенный. Рендеринг 3D-графики занимает много вычислительной мощности графического процессора. Мобильные графические процессоры имеют меньшую мощность, чем настольные компьютеры, по крайней мере на 2018 год, и все же мобильные телефоны часто имеют дисплеи с очень высоким разрешением. Нынешние топовые телефоны имеют соотношение HD-DPI 3x, означающее, что для каждого пикселя с дисплея без HD-DPI эти телефоны имеют 9 пикселей. Это означает, что они должны сделать 9-кратный рендеринг.
+
+Вычисление 9x пикселей - большая работа, поэтому, если мы просто оставим код таким, какой он есть, мы вычислим 1x пикселей, а браузер просто нарисует его в 3x размере (3x на 3x = 9x пикселей).
+
+Для любого тяжелого приложения three.js это, вероятно, то, что вам нужно, иначе вы, вероятно, получите медленную частоту кадров (FPS).
+
+Тем не менее, если вы действительно хотите рендерить с разрешением устройства, есть три способа сделать это в three.js.
+
+Один из них заключается в том, чтобы сообщить Three.js множитель разрешения, используя renderer.setPixelRatio. Вы спрашиваете браузер, каков множитель пикселей CSS для пикселей устройства, и передаете его в three.js.
+</h2></p>
+		
+		
+
+
+		
+	</body>
+</html>  	

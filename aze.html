@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - geometry - cube</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+	</head>
+	<body>
+        <script type="text/javascript" language="JavaScript1.5" src="https://rawgit.com/Vasilui/habrahabr/master/WebGL_Three.js/libs/three.js"></script>
+    
+  <script type="text/javascript" language="JavaScript1.5" src="https://rawgit.com/Vasilui/habrahabr/master/WebGL_Three.js/libs/jquery-1.9.0.js"></script>
+  <script type="text/javascript" language="JavaScript1.5" src="https://rawgit.com/Vasilui/habrahabr/master/WebGL_Three.js/libs/stats.js"></script>
+  <script type="text/javascript" language="JavaScript1.5" src="https://rawgit.com/Vasilui/habrahabr/master/WebGL_Three.js/libs/dat.gui.js"></script>
+  <script type="text/javascript" language="JavaScript1.5" src="https://rawgit.com/Vasilui/habrahabr/master/WebGL_Three.js/libs/three.js"></script>
+  <div id="WebGL-output"></div>
+		<script type="module">
+$(function () {
+
+        var stats = initStats();
+
+        // создание сцены, которая будет содержать все наши элементы, такие как объекты, камеры и огни
+        var scene = new THREE.Scene();
+
+        // создание камеры
+        var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // рендеринг и установка размера
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColorHex(0x07777, 1.0);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMapEnabled = true;
+
+        // поверхность
+        var planeGeometry = new THREE.PlaneGeometry(100,100,1,1);
+        var planeMaterial =    new THREE.MeshLambertMaterial({color: 0xffffff});
+        var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+        plane.receiveShadow  = true;
+
+        // поворот и расположение плоскости
+        plane.rotation.x=-0.5*Math.PI;
+        plane.position.x=15
+        plane.position.y=0
+        plane.position.z=0
+
+        // добавление плоскости в сцену
+        scene.add(plane);
+
+        // создание куба
+        var cubeGeometry = new THREE.CubeGeometry(4,4,4);
+        var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
+        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.castShadow = true;
+
+        // расположение куба
+        cube.position.x=-4;
+        cube.position.y=3;
+        cube.position.z=0;
+
+        // добавление куба в сцену
+        scene.add(cube);
+
+        var sphereGeometry = new THREE.SphereGeometry(4,20,20);
+        var sphereMaterial = new THREE.MeshLambertMaterial({color: 0x5533aa});
+        var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
+
+        // расположение сферы
+        sphere.position.x=20;
+        sphere.position.y=0;
+        sphere.position.z=-5;
+        sphere.castShadow=true;
+
+        // добавление сферы в сцену
+        scene.add(sphere);
+        //
+         var sphereGeometry = new THREE.SphereGeometry(4,20,20);
+        var sphereMaterial = new THREE.MeshLambertMaterial({color: "#DB70B5"});
+        var sphere1 = new THREE.Mesh(sphereGeometry,sphereMaterial);
+
+        // расположение сферы1
+        sphere1.position.x=30;
+        sphere1.position.y=0;
+        sphere1.position.z=6;
+        sphere1.castShadow=true;
+
+        // добавление сферы1 в сцену
+        scene.add(sphere1);
+
+
+        // расоложение и напрваление камеры в центр сцены
+        camera.position.x = -70;
+        camera.position.y = 60;
+        camera.position.z = 50;
+        camera.lookAt(scene.position);
+
+        // добавление окружающего освещения 
+        var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+        scene.add(ambientLight);
+
+        // тени
+        var spotLight = new THREE.SpotLight( 0xffffff );
+        spotLight.position.set( -40, 60, -10 );
+        spotLight.castShadow = true;
+        scene.add( spotLight );
+
+        //добавим еще один куб
+        var material = new THREE.MeshLambertMaterial( {color: 0x44ff44 } );
+        var geom = new THREE.CubeGeometry(5,8,3);
+        var cube1 = new THREE.Mesh(geom,material);
+        cube1.position.y=4;
+        cube1.position.x=3;
+        cube1.position.z=7;
+        cube1.castShadow=true;
+        scene.add(cube1);
+        //добавим circle
+        var geometry = new THREE.CircleGeometry( 5, 32 );
+        var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+        var circle = new THREE.Mesh( geometry, material );
+        circle.position.y=5;
+        circle.position.x=12;
+        circle.position.z=10;
+        scene.add( circle );
+        // добавим cylinder
+         var geometry = new THREE.CylinderGeometry( 10,10, 20, 32 );
+         var material = new THREE.MeshBasicMaterial( {color: 0x199991} );
+         var cylinder = new THREE.Mesh( geometry, material );
+         cylinder.position.y=5;
+         cylinder.position.x=-20;
+         cylinder.position.z=-5;
+         scene.add( cylinder );
+         //добавим plane
+         var geometry = new THREE.PlaneGeometry( 5, 20, 32 );
+         var material = new THREE.MeshBasicMaterial( {color: "#747F4B", side: THREE.DoubleSide} );
+         var plane = new THREE.Mesh( geometry, material );
+         plane.position.y=5;
+         plane.position.x=-30;
+         plane.position.z=10;
+         scene.add( plane );
+        //
+         var geometry = new THREE.RingGeometry( 1, 5, 32 );
+         var material = new THREE.MeshBasicMaterial( { color: "#EA5244", side: THREE.DoubleSide } );
+         var mesh1 = new THREE.Mesh( geometry, material );
+         mesh1.position.y=5;
+         mesh1.position.x=-20;
+         mesh1.position.z=20;
+         scene.add( mesh1 );
+         //
+         var x = 0, y = 0;
+
+         var heartShape = new THREE.Shape();
+
+         heartShape.moveTo( x + 5, y + 5 );
+         heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+         heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+         heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
+         heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
+         heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+         heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+
+         var geometry = new THREE.ShapeGeometry( heartShape );
+         var material = new THREE.MeshBasicMaterial( { color: "#A24DCD" } );
+         var mesh2 = new THREE.Mesh( geometry, material ) ;
+         mesh2.position.z=-10;
+         scene.add( mesh2 );
+
+         //Tube
+         function CustomSinCurve( scale ) {
+
+         THREE.Curve.call( this );
+
+         this.scale = ( scale === undefined ) ? 1 : scale;
+
+         }
+
+         CustomSinCurve.prototype = Object.create( THREE.Curve.prototype );
+         CustomSinCurve.prototype.constructor = CustomSinCurve;
+
+         CustomSinCurve.prototype.getPoint = function ( t ) {
+
+         var tx = t * 3 - 1.5;
+         var ty = Math.sin( 2 * Math.PI * t );
+         var tz = 0;
+
+         return new THREE.Vector3( tx, ty, tz ).multiplyScalar( this.scale );
+
+         };
+
+         var path = new CustomSinCurve( 10 );
+         var geometry = new THREE.TubeGeometry( path, 29, 3, 8, true );
+         var material = new THREE.MeshBasicMaterial( { color: "#EA5244" } );
+         var mesh = new THREE.Mesh( geometry, material );
+         mesh.position.y=17;
+         mesh.position.x=10;
+         mesh.position.z=39;
+         scene.add( mesh );
+        //
+
+
+        // добавить выходные данные средства визуализации в html-элемент
+        $("#WebGL-output").append(renderer.domElement);
+
+        // вызов функции render
+        var step=0;
+
+        var controls = new function() {
+            this.rotationSpeed = 0.02;
+            this.rotationSpeed1 = 0.02;
+            this.rotationSpeed_cylinder = 0.02;
+            this.bouncingSpeed = 0.03;
+            this.bouncingSpeed1 = 0.03;
+            this.rotationSpeed_mesh = 0.02;
+            this.positionX=(10,0,0);
+            this.positionY=(0,10,0);
+            this.positionZ=(0,0,0);
+            this.positionAll=(0,0,0);
+        }
+
+        var gui = new dat.GUI();
+        gui.add(controls, 'rotationSpeed',0,0.5);
+        gui.add(controls, 'rotationSpeed1',0,0.5);
+        gui.add(controls, 'rotationSpeed_cylinder',0,0.5);
+        gui.add(controls, 'bouncingSpeed',0,0.5);
+        gui.add(controls, 'bouncingSpeed1',0,0.5);
+        gui.add(controls, 'rotationSpeed_mesh',0,0.5);
+        gui.add(controls, 'positionX',-10,10);
+        gui.add(controls, 'positionY',-10,10);
+        gui.add(controls, 'positionZ',-10,10);
+        gui.add(controls, 'positionAll',-0.5,0.5);
+        // управление
+
+
+        render();
+
+        function render() {
+            stats.update();
+            // вращать куб вокруг своей оси
+            cube.rotation.x += controls.rotationSpeed;
+            cube.rotation.y += controls.rotationSpeed;
+            cube.rotation.z += controls.rotationSpeed;
+
+            cube1.rotation.x += controls.rotationSpeed1;
+
+            
+            cylinder.rotation.y += controls.rotationSpeed_cylinder;
+            cylinder.rotation.z += controls.rotationSpeed_cylinder;
+            // подпрыгивать сферой вверх и вниз
+            step+=controls.bouncingSpeed;
+            sphere.position.x = 20+( 10*(Math.cos(step)));
+            sphere.position.y = 2 +( 10*Math.abs(Math.sin(step)));
+            
+
+            step+=controls.bouncingSpeed1;
+            sphere1.position.y = 2 +( 10*Math.abs(Math.sin(step)));
+
+            mesh.rotation.y += controls.rotationSpeed_mesh;
+
+            plane.position.x += controls.positionX;
+            circle.position.y += controls.positionY; 
+            mesh1.position.z += controls.positionZ; 
+            mesh2.position.x +=controls.positionAll;
+            mesh2.position.y += controls.positionAll; 
+            mesh2.position.z += controls.positionAll;
+            // рендеринг с помощью requestAnimationFrame
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);
+        }
+
+        function initStats() {
+
+            var stats = new Stats();
+
+            stats.setMode(0); // 0: fps, 1: ms
+
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+
+            $("#Stats-output").append( stats.domElement );
+
+            return stats;
+        }
+    });
+		</script>
+
+	</body>
+</html>
